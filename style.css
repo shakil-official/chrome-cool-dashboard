@@ -307,7 +307,7 @@ body {
 }
 
 body:not(.sidebar-hidden) .notes-panel {
-  right: 320px;
+  right: 40px;
 }
 
 .notes-panel.hidden {
@@ -604,7 +604,7 @@ body:not(.sidebar-hidden) .notes-panel {
 }
 
 body:not(.sidebar-hidden) .shortcuts-panel {
-  left: 340px;
+  left: 40px;
 }
 
 .shortcuts-panel.hidden {
