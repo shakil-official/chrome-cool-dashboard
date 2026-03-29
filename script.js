@@ -1,3 +1,25 @@
+// Apply theme immediately when script loads (before DOM ready)
+(function() {
+  try {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      // Apply to body immediately if it exists
+      if (document.body) {
+        document.body.classList.add("dark");
+        console.log('Applied dark mode immediately at script load');
+      } else {
+        // If body doesn't exist yet, apply when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+          document.body.classList.add("dark");
+          console.log('Applied dark mode at DOM ready');
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error applying theme at script load:', error);
+  }
+})();
+
 // Initialize Icons safely
 function initIcons() {
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -27,11 +49,11 @@ function debouncedInitIcons() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Draw Icons immediately
-  initIcons();
-
-  // 2. Load saved preferences
+  // 1. Load saved preferences first (including theme)
   loadPreferences();
+  
+  // 2. Draw Icons immediately
+  initIcons();
 
   // 3. Search Logic
   const searchInput = document.querySelector(".search");
@@ -47,15 +69,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("dark");
     const icon = themeBtn.querySelector("i");
     
-    // Change icon attribute
-    if (document.body.classList.contains("dark")) {
-      icon.setAttribute("data-lucide", "sun");
-    } else {
-      icon.setAttribute("data-lucide", "moon");
+    // Change icon attribute with null check
+    if (icon) {
+      if (document.body.classList.contains("dark")) {
+        icon.setAttribute("data-lucide", "sun");
+      } else {
+        icon.setAttribute("data-lucide", "moon");
+      }
     }
     
     // Save theme preference
-    localStorage.setItem('theme', document.body.classList.contains("dark") ? 'dark' : 'light');
+    const theme = document.body.classList.contains("dark") ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    console.log('Theme saved:', theme);
+    console.log('localStorage theme:', localStorage.getItem('theme'));
     
     // Re-render icons to swap moon/sun
     debouncedInitIcons();
@@ -122,15 +149,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Load saved preferences
 function loadPreferences() {
-  // Load theme
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add("dark");
-    const themeBtn = document.getElementById("toggleTheme");
-    const icon = themeBtn?.querySelector("i");
-    if (icon) {
-      icon.setAttribute("data-lucide", "sun");
+  try {
+    // Load theme immediately
+    const savedTheme = localStorage.getItem('theme');
+    console.log('Loading theme from localStorage:', savedTheme);
+    
+    if (savedTheme === 'dark') {
+      document.body.classList.add("dark");
+      console.log('Applied dark mode to body');
+      
+      // Update theme button icon immediately with null check
+      const themeBtn = document.getElementById("toggleTheme");
+      const icon = themeBtn?.querySelector("i");
+      if (icon) {
+        icon.setAttribute("data-lucide", "sun");
+        console.log('Updated theme icon to sun');
+      } else {
+        console.warn('Theme button icon not found');
+      }
     }
+    
+    // Fallback: Ensure theme is applied after a short delay
+    setTimeout(() => {
+      if (savedTheme === 'dark' && !document.body.classList.contains("dark")) {
+        document.body.classList.add("dark");
+        console.log('Fallback: Applied dark mode');
+        const themeBtn = document.getElementById("toggleTheme");
+        const icon = themeBtn?.querySelector("i");
+        if (icon) {
+          icon.setAttribute("data-lucide", "sun");
+          debouncedInitIcons();
+        }
+      }
+    }, 100);
+  } catch (error) {
+    console.error('Error loading preferences:', error);
   }
   
   // Load background color

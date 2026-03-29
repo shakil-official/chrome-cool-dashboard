@@ -8,6 +8,9 @@ A modern Chrome extension that replaces the new tab page with a customizable das
 - Replaces Chrome's default new tab page
 - Customizable widgets and layout
 - Responsive design
+- **Note Feature** - Create and manage quick notes directly on your dashboard
+- **Custom Link Management** - Add, edit, and organize your favorite bookmarks and links
+- **AI Tools Sidebar** - Quick access to popular AI tools and services in the sidebar
 
 ## Installation
 
