@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cool Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <button id="toggleTheme" class="icon-btn"><i data-lucide="moon"></i></button>
+        <div class="color-picker-container">
+            <button id="colorPickerBtn" class="icon-btn"><i data-lucide="palette"></i></button>
+            <label for="bgColorPicker"></label><input type="color" id="bgColorPicker" class="color-picker" value="#f8fafc">
+        </div>
+        <button id="toggleLayout" class="icon-btn"><i data-lucide="layout"></i></button>
+        <button id="manageShortcuts" class="icon-btn"><i data-lucide="settings"></i></button>
+    </div>
+    <div class="topbar-center">
+        <div id="weatherWidget" class="weather-widget">
+            <i data-lucide="cloud" class="weather-icon"></i>
+            <span class="weather-temp">--°</span>
+            <span class="weather-location">Loading...</span>
+        </div>
+    </div>
+    <div class="topbar-right">
+        <button id="toggleNotes" class="icon-btn"><i data-lucide="file-text"></i></button>
+        <div id="clock" class="clock-widget"></div>
+    </div>
+</div>
+
+<div class="layout">
+    <div class="main">
+        <h1 class="logo">Cool <span>Dashboard</span></h1>
+        <div class="search-container">
+            <i data-lucide="search" class="search-icon"></i>
+            <label>
+                <input class="search" type="text" placeholder="Search Google..." autofocus>
+            </label>
+        </div>
+
+        <div class="shortcuts">
+            <a href="https://github.com"><i data-lucide="git-branch"></i> GitHub</a>
+            <a href="https://linkedin.com"><i data-lucide="users"></i> LinkedIn</a>
+            <a href="https://facebook.com"><i data-lucide="share-2"></i> Facebook</a>
+            <a href="https://mail.google.com"><i data-lucide="mail"></i> Gmail</a>
+            <a href="https://twitter.com"><i data-lucide="message-circle"></i> Twitter</a>
+            <a href="https://instagram.com"><i data-lucide="camera"></i> Instagram</a>
+            <a href="https://youtube.com"><i data-lucide="play-circle"></i> YouTube</a>
+            <a href="https://reddit.com"><i data-lucide="message-square"></i> Reddit</a>
+        </div>
+    </div>
+
+    <div id="notesPanel" class="notes-panel hidden">
+        <div class="notes-header">
+            <h3><i data-lucide="file-text"></i> Quick Notes</h3>
+            <button id="closeNotes" class="icon-btn"><i data-lucide="x"></i></button>
+        </div>
+        <div class="notes-content">
+            <div class="notes-controls">
+                <button id="addNote" class="btn-small">
+                    <i data-lucide="plus"></i> Add Note
+                </button>
+                <button id="clearAllNotes" class="btn-small btn-danger">
+                    <i data-lucide="trash-2"></i> Clear All
+                </button>
+            </div>
+
+            <!-- Note Editor Modal -->
+            <div id="noteEditor" class="note-editor hidden">
+                <div class="editor-header">
+                    <label for="noteTitleInput"></label><input type="text" id="noteTitleInput" placeholder="Note title..." class="note-title-input">
+                    <button id="closeEditor" class="icon-btn"><i data-lucide="x"></i></button>
+                </div>
+                <label for="noteContentInput"></label><textarea id="noteContentInput" placeholder="Write your note here..."
+                                                                class="note-content-input"></textarea>
+                <div class="editor-footer">
+                    <span id="editorCharCount">0 characters</span>
+                    <div class="editor-actions">
+                        <button id="cancelEdit" class="btn-small btn-secondary">Cancel</button>
+                        <button id="saveNote" class="btn-small">Save Note</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notesList" class="notes-list">
+                <!-- Notes will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Shortcuts Management Panel -->
+    <div id="shortcutsPanel" class="shortcuts-panel hidden">
+        <div class="shortcuts-header">
+            <h3><i data-lucide="settings"></i> Manage Shortcuts</h3>
+            <button id="closeShortcuts" class="icon-btn"><i data-lucide="x"></i></button>
+        </div>
+        <div class="shortcuts-content">
+            <div class="shortcuts-controls">
+                <button id="addShortcut" class="btn-small">
+                    <i data-lucide="plus"></i> Add Shortcut
+                </button>
+                <button id="resetShortcuts" class="btn-small btn-secondary">
+                    <i data-lucide="refresh-cw"></i> Reset to Default
+                </button>
+            </div>
+            
+            <!-- Add/Edit Shortcut Modal -->
+            <div id="shortcutEditor" class="shortcut-editor hidden">
+                <div class="editor-header">
+                    <input type="text" id="shortcutNameInput" placeholder="Shortcut name..." class="shortcut-name-input">
+                    <button id="closeShortcutEditor" class="icon-btn"><i data-lucide="x"></i></button>
+                </div>
+                <div class="editor-body">
+                    <input type="url" id="shortcutUrlInput" placeholder="https://example.com" class="shortcut-url-input">
+                    <div class="icon-selector">
+                        <label>Icon:</label>
+                        <select id="shortcutIconSelect" class="icon-select">
+                            <option value="home">Home</option>
+                            <option value="search">Search</option>
+                            <option value="star">Star</option>
+                            <option value="heart">Heart</option>
+                            <option value="bookmark">Bookmark</option>
+                            <option value="globe">Globe</option>
+                            <option value="mail">Mail</option>
+                            <option value="user">User</option>
+                            <option value="folder">Folder</option>
+                            <option value="tag">Tag</option>
+                            <option value="link">Link</option>
+                            <option value="external-link">External Link</option>
+                            <option value="git-branch">Git Branch</option>
+                            <option value="users">Users</option>
+                            <option value="message-circle">Message</option>
+                            <option value="camera">Camera</option>
+                            <option value="play-circle">Play</option>
+                            <option value="message-square">Chat</option>
+                            <option value="code">Code</option>
+                            <option value="terminal">Terminal</option>
+                            <option value="brain">Brain</option>
+                            <option value="sparkles">Sparkles</option>
+                            <option value="zap">Zap</option>
+                            <option value="layout">Layout</option>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                            <option value="film">Film</option>
+                            <option value="palette">Palette</option>
+                            <option value="brush">Brush</option>
+                            <option value="pen">Pen</option>
+                            <option value="book">Book</option>
+                            <option value="file-text">File Text</option>
+                            <option value="cpu">CPU</option>
+                            <option value="layers">Layers</option>
+                            <option value="bar-chart">Bar Chart</option>
+                            <option value="database">Database</option>
+                            <option value="rocket">Rocket</option>
+                            <option value="hash">Hash</option>
+                            <option value="clapperboard">Clapperboard</option>
+                            <option value="type">Type</option>
+                            <option value="workflow">Workflow</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="editor-footer">
+                    <div class="editor-actions">
+                        <button id="cancelShortcut" class="btn-small btn-secondary">Cancel</button>
+                        <button id="saveShortcut" class="btn-small">Save Shortcut</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="shortcutsList" class="shortcuts-list">
+                <!-- Custom shortcuts will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+
+        <div class="group">
+            <h3>✨ AI Chatbots</h3>
+
+            <a href="https://chat.openai.com" target="_blank">
+                <i data-lucide="bot"></i> ChatGPT
+            </a>
+
+            <a href="https://claude.ai" target="_blank">
+                <i data-lucide="brain"></i> Claude
+            </a>
+
+            <a href="https://gemini.google.com" target="_blank">
+                <i data-lucide="sparkles"></i> Gemini
+            </a>
+
+            <a href="https://perplexity.ai" target="_blank">
+                <i data-lucide="search"></i> Perplexity
+            </a>
+
+            <a href="https://poe.com" target="_blank">
+                <i data-lucide="message-circle"></i> Poe
+            </a>
+
+            <a href="https://you.com" target="_blank">
+                <i data-lucide="globe"></i> You.com
+            </a>
+
+            <a href="https://huggingface.co/chat" target="_blank">
+                <i data-lucide="cpu"></i> HuggingChat
+            </a>
+
+            <a href="https://character.ai" target="_blank">
+                <i data-lucide="users"></i> Character.AI
+            </a>
+
+        </div>
+
+        <div class="group">
+            <h3>🚀 Vibe Coding</h3>
+
+            <a href="https://bolt.new" target="_blank">
+                <i data-lucide="zap"></i> Bolt
+            </a>
+
+            <a href="https://v0.dev" target="_blank">
+                <i data-lucide="layout"></i> v0
+            </a>
+
+            <a href="https://cursor.sh" target="_blank">
+                <i data-lucide="code"></i> Cursor
+            </a>
+
+            <a href="https://replit.com" target="_blank">
+                <i data-lucide="terminal"></i> Replit AI
+            </a>
+
+            <a href="https://lovable.dev" target="_blank">
+                <i data-lucide="heart"></i> Lovable
+            </a>
+
+            <a href="https://github.com/copilot" target="_blank">
+                <i data-lucide="git-branch"></i>GitHub Copilot
+            </a>
+
+            <a href="https://codeium.com" target="_blank">
+                <i data-lucide="cpu"></i> Codeium
+            </a>
+
+            <a href="https://tabnine.com" target="_blank">
+                <i data-lucide="layers"></i> Tabnine
+            </a>
+
+        </div>
+
+        <div class="group">
+            <h3>🎨 Creative AI</h3>
+
+            <a href="https://midjourney.com" target="_blank">
+                <i data-lucide="image"></i> Midjourney
+            </a>
+
+            <a href="https://runwayml.com" target="_blank">
+                <i data-lucide="video"></i> Runway
+            </a>
+
+            <a href="https://pika.art" target="_blank">
+                <i data-lucide="film"></i> Pika
+            </a>
+
+            <a href="https://leonardo.ai" target="_blank">
+                <i data-lucide="palette"></i> Leonardo
+            </a>
+
+            <a href="https://stability.ai" target="_blank">
+                <i data-lucide="sparkles"></i> Stability AI
+            </a>
+
+            <a href="https://krea.ai" target="_blank">
+                <i data-lucide="brush"></i> Krea
+            </a>
+
+            <a href="https://ideogram.ai" target="_blank">
+                <i data-lucide="type"></i> Ideogram
+            </a>
+
+        </div>
+
+        <div class="group">
+            <h3>✍️ Writing AI</h3>
+
+            <a href="https://quillbot.com" target="_blank">
+                <i data-lucide="pen"></i> QuillBot
+            </a>
+
+            <a href="https://grammarly.com" target="_blank">
+                <i data-lucide="book"></i> Grammarly
+            </a>
+
+            <a href="https://notion.so" target="_blank">
+                <i data-lucide="file-text"></i> Notion AI
+            </a>
+
+        </div>
+
+        <div class="group">
+            <h3>💼 Careers & Social</h3>
+
+            <a href="https://linkedin.com" target="_blank">
+                <i data-lucide="users"></i> LinkedIn
+            </a>
+
+            <a href="https://github.com" target="_blank">
+                <i data-lucide="git-branch"></i> GitHub
+            </a>
+
+            <a href="https://twitter.com" target="_blank">
+                <i data-lucide="message-circle"></i> Twitter
+            </a>
+
+            <a href="https://discord.com" target="_blank">
+                <i data-lucide="message-square"></i> Discord
+            </a>
+
+        </div>
+
+        <div class="group">
+            <h3>🤖 Automation AI</h3>
+
+            <a href="https://zapier.com/ai" target="_blank">
+                <i data-lucide="zap"></i> Zapier AI
+            </a>
+
+            <a href="https://make.com" target="_blank">
+                <i data-lucide="git-branch"></i> Make
+            </a>
+
+            <a href="https://ifttt.com" target="_blank">
+                <i data-lucide="link"></i> IFTTT
+            </a>
+
+            <a href="https://n8n.io" target="_blank">
+                <i data-lucide="workflow"></i> n8n
+            </a>
+
+        </div>
+
+        <div class="group">
+            <h3>📊 Data & Analytics</h3>
+
+            <a href="https://tableau.com" target="_blank">
+                <i data-lucide="bar-chart"></i> Tableau
+            </a>
+
+            <a href="https://data.ai" target="_blank">
+                <i data-lucide="database"></i> Data.ai
+            </a>
+
+            <a href="https://huggingface.co" target="_blank">
+                <i data-lucide="cpu"></i> Hugging Face
+            </a>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="lucide.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>
