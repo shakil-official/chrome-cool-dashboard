@@ -2,6 +2,7 @@
 (function() {
   try {
     const savedTheme = localStorage.getItem('theme');
+    console.log('Script load - theme from localStorage:', savedTheme);
     if (savedTheme === 'dark') {
       // Apply to body immediately if it exists
       if (document.body) {
@@ -125,11 +126,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // 8. Notes Panel
   initNotesPanel();
 
-  // 9. Shortcuts Management
+  // 9. Google Meet and Workspace
+  initGoogleMeetAndWorkspace();
+
+  // 10. Shortcuts Management
   initShortcutsPanel();
   renderMainShortcuts(); // Render shortcuts on page load
 
-  // 10. Clock - Bangladesh Time Zone
+  // 11. Clock - Bangladesh Time Zone
   function updateClock() {
     const clockElement = document.getElementById("clock");
     const now = new Date();
@@ -767,4 +771,133 @@ function renderMainShortcuts() {
   if (window.lucide) {
     debouncedInitIcons();
   }
+}
+
+// Google Meet and Workspace functionality
+function initGoogleMeetAndWorkspace() {
+  console.log('Initializing Google Meet and Workspace...');
+  
+  const googleMeetBtn = document.getElementById("googleMeetBtn");
+  const googleWorkspaceBtn = document.getElementById("googleWorkspaceBtn");
+  const workspaceDropdown = document.getElementById("workspaceDropdown");
+  
+  console.log('Google Meet button found:', !!googleMeetBtn);
+  console.log('Google Workspace button found:', !!googleWorkspaceBtn);
+  console.log('Workspace dropdown found:', !!workspaceDropdown);
+  
+  // Google Meet button - create instant meeting
+  if (googleMeetBtn) {
+    googleMeetBtn.addEventListener('click', (e) => {
+      console.log('Google Meet button clicked!');
+      e.preventDefault();
+      e.stopPropagation();
+      createGoogleMeetLink();
+    });
+    console.log('Google Meet button event listener attached');
+  } else {
+    console.error('Google Meet button not found!');
+  }
+  
+  // Google Workspace dropdown toggle
+  if (googleWorkspaceBtn) {
+    googleWorkspaceBtn.addEventListener('click', (e) => {
+      console.log('Google Workspace button clicked!');
+      e.preventDefault();
+      e.stopPropagation();
+      workspaceDropdown.classList.toggle('hidden');
+    });
+    console.log('Google Workspace button event listener attached');
+  } else {
+    console.error('Google Workspace button not found!');
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.google-workspace-dropdown')) {
+      workspaceDropdown.classList.add('hidden');
+    }
+  });
+  
+  // Prevent dropdown from closing when clicking inside
+  if (workspaceDropdown) {
+    workspaceDropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+}
+
+// Create Google Meet link
+function createGoogleMeetLink() {
+  console.log('Creating Google Meet link...');
+  try {
+    // Use Google Meet's official "New Meeting" URL
+    const meetUrl = 'https://meet.google.com/new';
+    
+    console.log('Opening Google Meet new meeting:', meetUrl);
+    
+    // Show notification
+    showNotification('Opening Google Meet...', 'success');
+    
+    // Open Google Meet immediately
+    setTimeout(() => {
+      window.open(meetUrl, '_blank');
+    }, 500);
+    
+    // Also provide option to copy the generic meet URL for sharing
+    navigator.clipboard.writeText('https://meet.google.com').then(() => {
+      console.log('Google Meet base URL copied to clipboard');
+    }).catch(err => {
+      console.error('Failed to copy meet URL:', err);
+    });
+    
+  } catch (error) {
+    console.error('Error creating Google Meet link:', error);
+    showNotification('Failed to create Google Meet link', 'error');
+  }
+}
+
+// Show notification (simple implementation)
+function showNotification(message, type = 'info') {
+  // Remove existing notification if any
+  const existingNotification = document.querySelector('.notification');
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+  
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Fade in
+  setTimeout(() => {
+    notification.style.opacity = '1';
+  }, 10);
+  
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, 3000);
 }
