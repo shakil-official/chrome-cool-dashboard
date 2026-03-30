@@ -1089,3 +1089,255 @@ body:not(.sidebar-hidden) .shortcuts-panel {
     justify-content: center;
   }
 }
+
+/* AI Tools Management */
+.ai-tools-controls {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 16px;
+}
+
+.ai-tools-search {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.ai-tools-search:focus {
+  border-color: var(--accent);
+}
+
+.ai-tools-search::placeholder {
+  color: var(--text);
+  opacity: 0.5;
+}
+
+.ai-tools-controls .search-container {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.ai-tools-controls .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ai-tools-controls .btn-small {
+  width: 100%;
+  justify-content: center;
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  font-weight: 500;
+}
+
+.ai-tools-controls .btn-small:hover {
+  background: var(--accent);
+  opacity: 0.9;
+}
+
+/* AI Tool Items */
+.ai-tool {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin: 4px 0;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.ai-tool:hover {
+  background: var(--panel);
+  transform: translateX(2px);
+}
+
+.ai-tool a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.ai-tool a:hover {
+  color: var(--accent);
+}
+
+.ai-tool a i {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Pin Buttons */
+.pin-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text);
+  opacity: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-tool:hover .pin-btn {
+  opacity: 0.6;
+}
+
+.pin-btn:hover {
+  opacity: 1 !important;
+  background: var(--panel);
+  transform: scale(1.1);
+}
+
+.pin-btn.pinned {
+  opacity: 1 !important;
+  color: #fbbf24;
+}
+
+.pin-btn.pinned:hover {
+  color: #f59e0b;
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.pin-btn i {
+  width: 14px;
+  height: 14px;
+}
+
+/* Favorites Section */
+#favoritesGroup {
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(251, 191, 36, 0.05) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+#favoritesGroup h3 {
+  color: #f59e0b;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.favorite-tool {
+  background: rgba(251, 191, 36, 0.05);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+}
+
+.favorite-tool:hover {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.favorite-tool a {
+  color: var(--text);
+}
+
+.favorite-tool a i {
+  color: #f59e0b;
+}
+
+.no-favorites {
+  text-align: center;
+  color: var(--text);
+  opacity: 0.6;
+  padding: 20px;
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* Responsive adjustments for AI tools */
+@media (max-width: 1200px) {
+  .ai-tools-controls {
+    padding: 12px;
+  }
+  
+  .ai-tool {
+    padding: 6px 8px;
+  }
+  
+  .ai-tool a {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-tools-controls {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .ai-tools-search {
+    padding: 8px 10px 8px 32px;
+    font-size: 13px;
+  }
+  
+  .ai-tools-controls .search-icon {
+    left: 10px;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .ai-tool {
+    padding: 8px 6px;
+    margin: 3px 0;
+  }
+  
+  .ai-tool a {
+    font-size: 12px;
+    gap: 8px;
+  }
+  
+  .ai-tool a i {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .pin-btn {
+    padding: 4px;
+  }
+  
+  .pin-btn i {
+    width: 12px;
+    height: 12px;
+  }
+  
+  #favoritesGroup {
+    padding: 12px;
+  }
+  
+  #favoritesGroup h3 {
+    font-size: 13px;
+  }
+}

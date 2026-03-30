@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem('sidebarHidden', isHidden);
     
     const icon = layoutBtn.querySelector("i");
-    icon.setAttribute("data-lucide", isHidden ? "layout-sidebar" : "layout");
+    icon.setAttribute("data-lucide", isHidden ? "square" : "layout");
     debouncedInitIcons();
   };
 
@@ -133,7 +133,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initShortcutsPanel();
   renderMainShortcuts(); // Render shortcuts on page load
 
-  // 11. Clock - Bangladesh Time Zone
+  // 11. AI Tools Management
+  initAIToolsManagement();
+
+  // 12. Clock - Bangladesh Time Zone
   function updateClock() {
     const clockElement = document.getElementById("clock");
     const now = new Date();
@@ -212,7 +215,7 @@ function loadPreferences() {
     
     const icon = layoutBtn?.querySelector("i");
     if (icon) {
-      icon.setAttribute("data-lucide", "layout-sidebar");
+      icon.setAttribute("data-lucide", "square");
     }
   }
 }
@@ -900,4 +903,224 @@ function showNotification(message, type = 'info') {
       }
     }, 300);
   }, 3000);
+}
+
+// AI Tools Management
+function initAIToolsManagement() {
+  const searchInput = document.getElementById("aiToolsSearch");
+  const toggleFavoritesBtn = document.getElementById("toggleFavorites");
+  const favoritesGroup = document.getElementById("favoritesGroup");
+  const favoritesList = document.getElementById("favoritesList");
+  
+  // Load saved preferences
+  loadAIToolsPreferences();
+  
+  // Search functionality
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      filterAITools(searchTerm);
+    });
+  }
+  
+  // Toggle favorites view
+  if (toggleFavoritesBtn) {
+    toggleFavoritesBtn.addEventListener('click', () => {
+      const isHidden = favoritesGroup.style.display === 'none';
+      favoritesGroup.style.display = isHidden ? 'block' : 'none';
+      toggleFavoritesBtn.innerHTML = isHidden ? 
+        '<i data-lucide="star"></i> Hide Favorites' : 
+        '<i data-lucide="star"></i> Show Favorites';
+      
+      // Save preference
+      localStorage.setItem('showFavorites', isHidden);
+      
+      // Re-initialize icons
+      debouncedInitIcons();
+    });
+  }
+  
+  // Initialize pin buttons
+  initPinButtons();
+  
+  // Render favorites
+  renderFavorites();
+}
+
+function loadAIToolsPreferences() {
+  const showFavorites = localStorage.getItem('showFavorites') === 'true';
+  const favoritesGroup = document.getElementById("favoritesGroup");
+  const toggleFavoritesBtn = document.getElementById("toggleFavorites");
+  
+  if (showFavorites && favoritesGroup) {
+    favoritesGroup.style.display = 'block';
+    if (toggleFavoritesBtn) {
+      toggleFavoritesBtn.innerHTML = '<i data-lucide="star"></i> Hide Favorites';
+    }
+  }
+}
+
+function initPinButtons() {
+  const pinButtons = document.querySelectorAll('.pin-btn');
+  const favorites = getFavorites();
+  
+  pinButtons.forEach(btn => {
+    const toolName = btn.dataset.tool;
+    const isPinned = favorites.includes(toolName);
+    
+    // Update button state
+    updatePinButton(btn, isPinned);
+    
+    // Add click event
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      togglePin(toolName);
+    });
+  });
+}
+
+function updatePinButton(button, isPinned) {
+  const icon = button.querySelector('i');
+  if (isPinned) {
+    button.classList.add('pinned');
+    button.title = 'Unpin from favorites';
+    if (icon) icon.setAttribute('data-lucide', 'star');
+  } else {
+    button.classList.remove('pinned');
+    button.title = 'Pin to favorites';
+    if (icon) icon.setAttribute('data-lucide', 'pin');
+  }
+  debouncedInitIcons();
+}
+
+function togglePin(toolName) {
+  const favorites = getFavorites();
+  const index = favorites.indexOf(toolName);
+  
+  if (index > -1) {
+    // Remove from favorites
+    favorites.splice(index, 1);
+    showNotification(`Removed ${toolName} from favorites`, 'info');
+  } else {
+    // Add to favorites
+    favorites.push(toolName);
+    showNotification(`Added ${toolName} to favorites`, 'success');
+  }
+  
+  // Save favorites
+  localStorage.setItem('aiToolFavorites', JSON.stringify(favorites));
+  
+  // Update UI
+  updateAllPinButtons();
+  renderFavorites();
+}
+
+function updateAllPinButtons() {
+  const favorites = getFavorites();
+  const pinButtons = document.querySelectorAll('.pin-btn');
+  
+  pinButtons.forEach(btn => {
+    const toolName = btn.dataset.tool;
+    const isPinned = favorites.includes(toolName);
+    updatePinButton(btn, isPinned);
+  });
+}
+
+function getFavorites() {
+  const saved = localStorage.getItem('aiToolFavorites');
+  return saved ? JSON.parse(saved) : [];
+}
+
+function renderFavorites() {
+  const favoritesList = document.getElementById("favoritesList");
+  const favorites = getFavorites();
+  
+  if (!favoritesList) return;
+  
+  if (favorites.length === 0) {
+    favoritesList.innerHTML = '<div class="no-favorites">No favorite tools yet. Click the pin icon to add tools here!</div>';
+    return;
+  }
+  
+  const allTools = document.querySelectorAll('.ai-tool');
+  const favoriteTools = [];
+  
+  favorites.forEach(favoriteName => {
+    const toolElement = document.querySelector(`[data-tool-name="${favoriteName}"]`);
+    if (toolElement) {
+      const name = toolElement.dataset.toolName;
+      const url = toolElement.dataset.toolUrl;
+      const icon = toolElement.dataset.toolIcon;
+      
+      favoriteTools.push(`
+        <div class="ai-tool favorite-tool" data-tool-name="${name}" data-tool-url="${url}" data-tool-icon="${icon}">
+          <a href="${url}" target="_blank">
+            <i data-lucide="${icon}"></i> ${name}
+          </a>
+          <button class="pin-btn pinned" data-tool="${name}" title="Unpin from favorites">
+            <i data-lucide="star"></i>
+          </button>
+        </div>
+      `);
+    }
+  });
+  
+  favoritesList.innerHTML = favoriteTools.join('');
+  
+  // Re-initialize pin buttons for favorites
+  const favoritePinButtons = favoritesList.querySelectorAll('.pin-btn');
+  favoritePinButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      togglePin(btn.dataset.tool);
+    });
+  });
+  
+  // Re-initialize icons
+  debouncedInitIcons();
+}
+
+function filterAITools(searchTerm) {
+  const allTools = document.querySelectorAll('.ai-tool');
+  const groups = document.querySelectorAll('.group');
+  
+  if (searchTerm === '') {
+    // Show all tools and groups
+    allTools.forEach(tool => {
+      tool.style.display = 'flex';
+    });
+    groups.forEach(group => {
+      group.style.display = 'block';
+    });
+    return;
+  }
+  
+  // Filter tools
+  const groupsWithVisibleTools = new Set();
+  
+  allTools.forEach(tool => {
+    const toolName = tool.dataset.toolName.toLowerCase();
+    const isVisible = toolName.includes(searchTerm);
+    tool.style.display = isVisible ? 'flex' : 'none';
+    
+    if (isVisible) {
+      const parentGroup = tool.closest('.group');
+      if (parentGroup) {
+        groupsWithVisibleTools.add(parentGroup);
+      }
+    }
+  });
+  
+  // Hide groups with no visible tools (except favorites group)
+  groups.forEach(group => {
+    if (group.id === 'favoritesGroup') return; // Always show favorites
+    
+    if (groupsWithVisibleTools.has(group)) {
+      group.style.display = 'block';
+    } else {
+      group.style.display = 'none';
+    }
+  });
 }

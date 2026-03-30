@@ -199,187 +199,397 @@
     </div>
 
     <div class="sidebar" id="sidebar">
+        <div class="ai-tools-controls">
+            <div class="search-container">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="aiToolsSearch" placeholder="Search AI tools..." class="ai-tools-search">
+            </div>
+            <button id="toggleFavorites" class="btn-small">
+                <i data-lucide="star"></i> Show Favorites
+            </button>
+        </div>
+
+        <div class="group" id="favoritesGroup" style="display: none;">
+            <h3>⭐ Favorite AI Tools</h3>
+            <div id="favoritesList">
+                <!-- Favorite tools will be dynamically added here -->
+            </div>
+        </div>
 
         <div class="group">
             <h3>✨ AI Chatbots</h3>
 
-            <a href="https://chat.openai.com" target="_blank">
-                <i data-lucide="bot"></i> ChatGPT
-            </a>
+            <div class="ai-tool" data-tool-name="ChatGPT" data-tool-url="https://chat.openai.com" data-tool-icon="bot">
+                <a href="https://chat.openai.com" target="_blank">
+                    <i data-lucide="bot"></i> ChatGPT
+                </a>
+                <button class="pin-btn" data-tool="ChatGPT" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://claude.ai" target="_blank">
-                <i data-lucide="brain"></i> Claude
-            </a>
+            <div class="ai-tool" data-tool-name="Claude" data-tool-url="https://claude.ai" data-tool-icon="brain">
+                <a href="https://claude.ai" target="_blank">
+                    <i data-lucide="brain"></i> Claude
+                </a>
+                <button class="pin-btn" data-tool="Claude" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://gemini.google.com" target="_blank">
-                <i data-lucide="sparkles"></i> Gemini
-            </a>
+            <div class="ai-tool" data-tool-name="Gemini" data-tool-url="https://gemini.google.com" data-tool-icon="sparkles">
+                <a href="https://gemini.google.com" target="_blank">
+                    <i data-lucide="sparkles"></i> Gemini
+                </a>
+                <button class="pin-btn" data-tool="Gemini" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://perplexity.ai" target="_blank">
-                <i data-lucide="search"></i> Perplexity
-            </a>
+            <div class="ai-tool" data-tool-name="Perplexity" data-tool-url="https://perplexity.ai" data-tool-icon="search">
+                <a href="https://perplexity.ai" target="_blank">
+                    <i data-lucide="search"></i> Perplexity
+                </a>
+                <button class="pin-btn" data-tool="Perplexity" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://poe.com" target="_blank">
-                <i data-lucide="message-circle"></i> Poe
-            </a>
+            <div class="ai-tool" data-tool-name="Poe" data-tool-url="https://poe.com" data-tool-icon="message-circle">
+                <a href="https://poe.com" target="_blank">
+                    <i data-lucide="message-circle"></i> Poe
+                </a>
+                <button class="pin-btn" data-tool="Poe" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://you.com" target="_blank">
-                <i data-lucide="globe"></i> You.com
-            </a>
+            <div class="ai-tool" data-tool-name="You.com" data-tool-url="https://you.com" data-tool-icon="globe">
+                <a href="https://you.com" target="_blank">
+                    <i data-lucide="globe"></i> You.com
+                </a>
+                <button class="pin-btn" data-tool="You.com" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://huggingface.co/chat" target="_blank">
-                <i data-lucide="cpu"></i> HuggingChat
-            </a>
+            <div class="ai-tool" data-tool-name="HuggingChat" data-tool-url="https://huggingface.co/chat" data-tool-icon="cpu">
+                <a href="https://huggingface.co/chat" target="_blank">
+                    <i data-lucide="cpu"></i> HuggingChat
+                </a>
+                <button class="pin-btn" data-tool="HuggingChat" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://character.ai" target="_blank">
-                <i data-lucide="users"></i> Character.AI
-            </a>
+            <div class="ai-tool" data-tool-name="Character.AI" data-tool-url="https://character.ai" data-tool-icon="users">
+                <a href="https://character.ai" target="_blank">
+                    <i data-lucide="users"></i> Character.AI
+                </a>
+                <button class="pin-btn" data-tool="Character.AI" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
+
+            <div class="ai-tool" data-tool-name="Grok" data-tool-url="https://grok.com" data-tool-icon="sparkles">
+                <a href="https://grok.com" target="_blank">
+                    <i data-lucide="sparkles"></i> Grok
+                </a>
+                <button class="pin-btn" data-tool="Grok" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
         </div>
 
         <div class="group">
             <h3>🚀 Vibe Coding</h3>
 
-            <a href="https://bolt.new" target="_blank">
-                <i data-lucide="zap"></i> Bolt
-            </a>
+            <div class="ai-tool" data-tool-name="Bolt" data-tool-url="https://bolt.new" data-tool-icon="zap">
+                <a href="https://bolt.new" target="_blank">
+                    <i data-lucide="zap"></i> Bolt
+                </a>
+                <button class="pin-btn" data-tool="Bolt" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://v0.dev" target="_blank">
-                <i data-lucide="layout"></i> v0
-            </a>
+            <div class="ai-tool" data-tool-name="v0" data-tool-url="https://v0.dev" data-tool-icon="layout">
+                <a href="https://v0.dev" target="_blank">
+                    <i data-lucide="layout"></i> v0
+                </a>
+                <button class="pin-btn" data-tool="v0" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://cursor.sh" target="_blank">
-                <i data-lucide="code"></i> Cursor
-            </a>
+            <div class="ai-tool" data-tool-name="Cursor" data-tool-url="https://cursor.sh" data-tool-icon="code">
+                <a href="https://cursor.sh" target="_blank">
+                    <i data-lucide="code"></i> Cursor
+                </a>
+                <button class="pin-btn" data-tool="Cursor" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://replit.com" target="_blank">
-                <i data-lucide="terminal"></i> Replit AI
-            </a>
+            <div class="ai-tool" data-tool-name="Replit AI" data-tool-url="https://replit.com" data-tool-icon="terminal">
+                <a href="https://replit.com" target="_blank">
+                    <i data-lucide="terminal"></i> Replit AI
+                </a>
+                <button class="pin-btn" data-tool="Replit AI" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://lovable.dev" target="_blank">
-                <i data-lucide="heart"></i> Lovable
-            </a>
+            <div class="ai-tool" data-tool-name="Lovable" data-tool-url="https://lovable.dev" data-tool-icon="heart">
+                <a href="https://lovable.dev" target="_blank">
+                    <i data-lucide="heart"></i> Lovable
+                </a>
+                <button class="pin-btn" data-tool="Lovable" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://github.com/copilot" target="_blank">
-                <i data-lucide="git-branch"></i>GitHub Copilot
-            </a>
+            <div class="ai-tool" data-tool-name="GitHub Copilot" data-tool-url="https://github.com/copilot" data-tool-icon="git-branch">
+                <a href="https://github.com/copilot" target="_blank">
+                    <i data-lucide="git-branch"></i>GitHub Copilot
+                </a>
+                <button class="pin-btn" data-tool="GitHub Copilot" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://codeium.com" target="_blank">
-                <i data-lucide="cpu"></i> Codeium
-            </a>
+            <div class="ai-tool" data-tool-name="Codeium" data-tool-url="https://codeium.com" data-tool-icon="cpu">
+                <a href="https://codeium.com" target="_blank">
+                    <i data-lucide="cpu"></i> Codeium
+                </a>
+                <button class="pin-btn" data-tool="Codeium" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://tabnine.com" target="_blank">
-                <i data-lucide="layers"></i> Tabnine
-            </a>
+            <div class="ai-tool" data-tool-name="Tabnine" data-tool-url="https://tabnine.com" data-tool-icon="layers">
+                <a href="https://tabnine.com" target="_blank">
+                    <i data-lucide="layers"></i> Tabnine
+                </a>
+                <button class="pin-btn" data-tool="Tabnine" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
         </div>
 
         <div class="group">
             <h3>🎨 Creative AI</h3>
 
-            <a href="https://midjourney.com" target="_blank">
-                <i data-lucide="image"></i> Midjourney
-            </a>
+            <div class="ai-tool" data-tool-name="Midjourney" data-tool-url="https://midjourney.com" data-tool-icon="image">
+                <a href="https://midjourney.com" target="_blank">
+                    <i data-lucide="image"></i> Midjourney
+                </a>
+                <button class="pin-btn" data-tool="Midjourney" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://runwayml.com" target="_blank">
-                <i data-lucide="video"></i> Runway
-            </a>
+            <div class="ai-tool" data-tool-name="Runway" data-tool-url="https://runwayml.com" data-tool-icon="video">
+                <a href="https://runwayml.com" target="_blank">
+                    <i data-lucide="video"></i> Runway
+                </a>
+                <button class="pin-btn" data-tool="Runway" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://pika.art" target="_blank">
-                <i data-lucide="film"></i> Pika
-            </a>
+            <div class="ai-tool" data-tool-name="Pika" data-tool-url="https://pika.art" data-tool-icon="film">
+                <a href="https://pika.art" target="_blank">
+                    <i data-lucide="film"></i> Pika
+                </a>
+                <button class="pin-btn" data-tool="Pika" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://leonardo.ai" target="_blank">
-                <i data-lucide="palette"></i> Leonardo
-            </a>
+            <div class="ai-tool" data-tool-name="Leonardo" data-tool-url="https://leonardo.ai" data-tool-icon="palette">
+                <a href="https://leonardo.ai" target="_blank">
+                    <i data-lucide="palette"></i> Leonardo
+                </a>
+                <button class="pin-btn" data-tool="Leonardo" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://stability.ai" target="_blank">
-                <i data-lucide="sparkles"></i> Stability AI
-            </a>
+            <div class="ai-tool" data-tool-name="Stability AI" data-tool-url="https://stability.ai" data-tool-icon="sparkles">
+                <a href="https://stability.ai" target="_blank">
+                    <i data-lucide="sparkles"></i> Stability AI
+                </a>
+                <button class="pin-btn" data-tool="Stability AI" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://krea.ai" target="_blank">
-                <i data-lucide="brush"></i> Krea
-            </a>
+            <div class="ai-tool" data-tool-name="Krea" data-tool-url="https://krea.ai" data-tool-icon="brush">
+                <a href="https://krea.ai" target="_blank">
+                    <i data-lucide="brush"></i> Krea
+                </a>
+                <button class="pin-btn" data-tool="Krea" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://ideogram.ai" target="_blank">
-                <i data-lucide="type"></i> Ideogram
-            </a>
+            <div class="ai-tool" data-tool-name="Ideogram" data-tool-url="https://ideogram.ai" data-tool-icon="type">
+                <a href="https://ideogram.ai" target="_blank">
+                    <i data-lucide="type"></i> Ideogram
+                </a>
+                <button class="pin-btn" data-tool="Ideogram" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
         </div>
 
         <div class="group">
             <h3>✍️ Writing AI</h3>
 
-            <a href="https://quillbot.com" target="_blank">
-                <i data-lucide="pen"></i> QuillBot
-            </a>
+            <div class="ai-tool" data-tool-name="QuillBot" data-tool-url="https://quillbot.com" data-tool-icon="pen">
+                <a href="https://quillbot.com" target="_blank">
+                    <i data-lucide="pen"></i> QuillBot
+                </a>
+                <button class="pin-btn" data-tool="QuillBot" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://grammarly.com" target="_blank">
-                <i data-lucide="book"></i> Grammarly
-            </a>
+            <div class="ai-tool" data-tool-name="Grammarly" data-tool-url="https://grammarly.com" data-tool-icon="book">
+                <a href="https://grammarly.com" target="_blank">
+                    <i data-lucide="book"></i> Grammarly
+                </a>
+                <button class="pin-btn" data-tool="Grammarly" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://notion.so" target="_blank">
-                <i data-lucide="file-text"></i> Notion AI
-            </a>
+            <div class="ai-tool" data-tool-name="Notion AI" data-tool-url="https://notion.so" data-tool-icon="file-text">
+                <a href="https://notion.so" target="_blank">
+                    <i data-lucide="file-text"></i> Notion AI
+                </a>
+                <button class="pin-btn" data-tool="Notion AI" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
         </div>
 
         <div class="group">
             <h3>💼 Careers & Social</h3>
 
-            <a href="https://linkedin.com" target="_blank">
-                <i data-lucide="users"></i> LinkedIn
-            </a>
+            <div class="ai-tool" data-tool-name="LinkedIn" data-tool-url="https://linkedin.com" data-tool-icon="users">
+                <a href="https://linkedin.com" target="_blank">
+                    <i data-lucide="users"></i> LinkedIn
+                </a>
+                <button class="pin-btn" data-tool="LinkedIn" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://github.com" target="_blank">
-                <i data-lucide="git-branch"></i> GitHub
-            </a>
+            <div class="ai-tool" data-tool-name="GitHub" data-tool-url="https://github.com" data-tool-icon="git-branch">
+                <a href="https://github.com" target="_blank">
+                    <i data-lucide="git-branch"></i> GitHub
+                </a>
+                <button class="pin-btn" data-tool="GitHub" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://twitter.com" target="_blank">
-                <i data-lucide="message-circle"></i> Twitter
-            </a>
+            <div class="ai-tool" data-tool-name="Twitter" data-tool-url="https://twitter.com" data-tool-icon="message-circle">
+                <a href="https://twitter.com" target="_blank">
+                    <i data-lucide="message-circle"></i> Twitter
+                </a>
+                <button class="pin-btn" data-tool="Twitter" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://discord.com" target="_blank">
-                <i data-lucide="message-square"></i> Discord
-            </a>
+            <div class="ai-tool" data-tool-name="Discord" data-tool-url="https://discord.com" data-tool-icon="message-square">
+                <a href="https://discord.com" target="_blank">
+                    <i data-lucide="message-square"></i> Discord
+                </a>
+                <button class="pin-btn" data-tool="Discord" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
         </div>
 
         <div class="group">
             <h3>🤖 Automation AI</h3>
 
-            <a href="https://zapier.com/ai" target="_blank">
-                <i data-lucide="zap"></i> Zapier AI
-            </a>
+            <div class="ai-tool" data-tool-name="Zapier AI" data-tool-url="https://zapier.com/ai" data-tool-icon="zap">
+                <a href="https://zapier.com/ai" target="_blank">
+                    <i data-lucide="zap"></i> Zapier AI
+                </a>
+                <button class="pin-btn" data-tool="Zapier AI" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://make.com" target="_blank">
-                <i data-lucide="git-branch"></i> Make
-            </a>
+            <div class="ai-tool" data-tool-name="Make" data-tool-url="https://make.com" data-tool-icon="git-branch">
+                <a href="https://make.com" target="_blank">
+                    <i data-lucide="git-branch"></i> Make
+                </a>
+                <button class="pin-btn" data-tool="Make" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://ifttt.com" target="_blank">
-                <i data-lucide="link"></i> IFTTT
-            </a>
+            <div class="ai-tool" data-tool-name="IFTTT" data-tool-url="https://ifttt.com" data-tool-icon="link">
+                <a href="https://ifttt.com" target="_blank">
+                    <i data-lucide="link"></i> IFTTT
+                </a>
+                <button class="pin-btn" data-tool="IFTTT" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://n8n.io" target="_blank">
-                <i data-lucide="workflow"></i> n8n
-            </a>
+            <div class="ai-tool" data-tool-name="n8n" data-tool-url="https://n8n.io" data-tool-icon="workflow">
+                <a href="https://n8n.io" target="_blank">
+                    <i data-lucide="workflow"></i> n8n
+                </a>
+                <button class="pin-btn" data-tool="n8n" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
         </div>
 
         <div class="group">
             <h3>📊 Data & Analytics</h3>
 
-            <a href="https://tableau.com" target="_blank">
-                <i data-lucide="bar-chart"></i> Tableau
-            </a>
+            <div class="ai-tool" data-tool-name="Tableau" data-tool-url="https://tableau.com" data-tool-icon="bar-chart">
+                <a href="https://tableau.com" target="_blank">
+                    <i data-lucide="bar-chart"></i> Tableau
+                </a>
+                <button class="pin-btn" data-tool="Tableau" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://data.ai" target="_blank">
-                <i data-lucide="database"></i> Data.ai
-            </a>
+            <div class="ai-tool" data-tool-name="Data.ai" data-tool-url="https://data.ai" data-tool-icon="database">
+                <a href="https://data.ai" target="_blank">
+                    <i data-lucide="database"></i> Data.ai
+                </a>
+                <button class="pin-btn" data-tool="Data.ai" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
 
-            <a href="https://huggingface.co" target="_blank">
-                <i data-lucide="cpu"></i> Hugging Face
-            </a>
+            <div class="ai-tool" data-tool-name="Hugging Face" data-tool-url="https://huggingface.co" data-tool-icon="cpu">
+                <a href="https://huggingface.co" target="_blank">
+                    <i data-lucide="cpu"></i> Hugging Face
+                </a>
+                <button class="pin-btn" data-tool="Hugging Face" title="Pin to favorites">
+                    <i data-lucide="pin"></i>
+                </button>
+            </div>
         </div>
     </div>
 
